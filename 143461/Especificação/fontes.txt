@@ -1,0 +1,121 @@
+01) F0407010        - Percorre a DK1 - Itens do pedido de venda em CPL Cockpit Logistico. Corrigir pra gravar o valor correto 16horas
+02) F0407011        - Valida se o pedido cai da regra de frete autonomo - adicionar mais 2 variávies, para verificar se tem frete ou não 
+                      Tempo para entendimento da rotina, e alteração e testes 8h
+03) F0407012        - Retorna a aliquota de icms conforme UF destino e Origem.
+
+04) F0407020        - Retorna o Icms do Frete para a Lorenz
+05) F0401021        - Passa para a rotina o numero do pedido de venda, e se é carga ou não, e calcula do frete autonomo, rotina feita baseada no fonte padrão GFEX011SIM, 
+                        que pode ter tido alterações conforme migração da 25->27->33 
+                        Tempo para entendimento da rotina e alterações proposta - 16 horas
+06) F0407040        - Adiciona na observação da nota o icms e a base do icms do frete
+07) OMSCPL7D        - Ponto de entrada - Chama a função F0407010 - Valida os pedidos da DK1 e a regra de frete para os pedidos - quando Lorenz
+08) F0401910        - Tela de carregamento - chama a rotina F0407011, para verificar se tem frete autonomo, e o F0407021 para calcular o frete autonomo.+
+                        Grava os campos C5_XVALFRE, C5_XAICFRE, C5_XICMFRE
+09) MT410TOK        - Chama o calculo do frete autonomo quando salva o pedido.
+10) PE01NFESEFAZ    - Chama F0407040, para icluir nos dados adicionais da nota.
+
+-Desenvolvimento do ponto de entrada 
+
+Parametro
+FS_C040701 
+FS+C040703
+
+
+
+
+TABELAS       CAMPOS   MANIPULACAO
+
+F0407010
+    SC5
+    SC9
+    DAK
+    SC6
+    SA1
+    SA2
+    GW1
+    GU3
+    GWN
+    DA3
+    SB5
+    GW8
+    SC1
+
+F0407020 
+    SC5       
+    DK1
+
+
+F0407021 
+    SC5               
+    DAK               
+    SC6              
+    SA1               
+    SA2               
+    SX5
+    GU3
+    GWN
+    GW1
+    DA3
+    SB5
+    GW8
+    SB1
+    GW0
+
+CAMPOS
+
+C5_NUM
+C5_TRANSP
+C5_CLIENT
+C5_LOJAENT
+C5_TIPO
+C5_VEICULO
+C9_CARGA
+DAK_TRANSP
+DAK_CAMINH
+DAK_CDCLFR
+DAK_CDTPOP
+C6_PRODUTO
+C6_QTDVEN
+C6_VALOR
+A1_CGC
+A2_CGC
+X5_DESCRI
+GU3_NRCID
+GWN_CD
+GWN_CDTPOP
+GWN_DOC
+GW1_EMISDC
+GW1_NRDC
+GW1_CDTPDC
+GW1_CDREM
+GW1_CDDEST
+GW1_TPFRET
+GW1_ICMSDC
+GW1_USO
+GW1_QTUNI
+GWU_EMISDC
+GWU_NRDC
+GWU_CDTPDC
+GWU_SEQ
+GWU_NRCIDO
+DA3_TIPVEI
+GU3_CDEMIT
+GW8_EMISDC
+GW8_NRDC
+GW8_CDTPDC
+GW8_ITEM
+GW8_DSITEM
+GW8_CDCLFR
+GW8_VOLUME
+GW8_PESOR
+GW8_VALOR
+GW8_QTDE
+GW8_TRIBP
+GW0_FILIAL
+GW0_TABELA
+GW0_CHAVE
+GW0_CHAR01
+
+
+
+
